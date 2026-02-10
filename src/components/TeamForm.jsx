@@ -5,9 +5,21 @@ export default function TeamForm({ onDone }) {
   const [leader, setLeader] = useState("");
   const [email, setEmail] = useState("");
 
+  // Allow only VIT student emails
+  function isValidVITEmail(email) {
+    return /^[a-zA-Z0-9._%+-]+@(vitstudent\.ac\.in)$/.test(email);
+  }
+
   function submit(e) {
     e.preventDefault();
 
+    // Validate email
+    if (!isValidVITEmail(email)) {
+      alert("❌ Please use your VIT email (@vitstudent.ac.in)");
+      return;
+    }
+
+    // Save data
     localStorage.setItem("teamData", JSON.stringify({ team, leader, email }));
 
     onDone();
@@ -24,19 +36,22 @@ export default function TeamForm({ onDone }) {
           <input
             placeholder="🏷 Team Name"
             required
+            value={team}
             onChange={(e) => setTeam(e.target.value)}
           />
 
           <input
             placeholder="👤 Team Leader"
             required
+            value={leader}
             onChange={(e) => setLeader(e.target.value)}
           />
 
           <input
             type="email"
-            placeholder="📧 Leader Email"
+            placeholder="📧 Leader Email (@vitstudent.ac.in)"
             required
+            value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
 
