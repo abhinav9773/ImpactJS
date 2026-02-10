@@ -160,7 +160,7 @@ export default function App() {
       setSpin3(false);
 
       confetti({
-        particleCount: 120,
+        particleCount: 150,
         spread: 70,
         origin: { y: 0.6 },
       });
